@@ -1,0 +1,57 @@
+@import '_variables.scss';
+
+div.mat-dialog-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h1.title {
+    margin-bottom: 0;
+    text-transform: uppercase;
+    font-size: $font-size-xl;
+    font-family: 'Satoshi-bold';
+    color: $color-brand-primary;
+  }
+
+  .icon-title {
+    margin-bottom: 20px;
+  }
+}
+
+.modal-content {
+  text-align: center;
+  padding: 10px 24px;
+  line-height: 25px;
+  color: $color-text;
+  font-size: $font-size-md;
+  font-family: 'Satoshi-regular';
+}
+
+div.mat-dialog-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 24px;
+
+  .cancel-btn,
+  .confirm-btn {
+    font-family: 'Satoshi-regular';
+    padding: 10px 45px;
+  }
+
+  .cancel-btn {
+    margin-right: 15px;
+  }
+}
+
+.btn-width {
+  width: 150px;
+  padding: 10px 32px;
+}
+
+@media (max-width: 512px) {
+  .cancel-btn {
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+}

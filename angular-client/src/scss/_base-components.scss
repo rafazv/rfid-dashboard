@@ -1,0 +1,110 @@
+/*
+ * Button component
+ */
+.btn {
+  font-size: $font-size-sm !important;
+  color: $color-neutral-lightest;
+  border: $border-width-none;
+  border-radius: $border-radius-lg;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-family: "Poppins-regular";
+
+  // When disabled
+  &:disabled {
+    background-color: $color-neutral-light;
+    color: $color-text-dark;
+    cursor: auto;
+
+    // On mouse-over or active
+    &:hover,
+    &:active {
+      background-color: $color-neutral-light;
+    }
+  }
+}
+
+// When size is medium
+.btn-md {
+  padding: $spacing-squish-xs;
+}
+
+// When size is large
+.btn-lg {
+  padding: $spacing-squish-sm;
+}
+
+// Primary color
+.btn-primary {
+  background-color: $color-brand-primary-medium;
+
+  // On mouse-over
+  &:hover {
+    background-color: $color-brand-primary-light;
+  }
+
+  // When active
+  &:active {
+    background-color: $color-brand-primary-dark;
+  }
+}
+
+// Sendondary color
+.btn-secondary {
+  background-color: $color-brand-secondary;
+
+  // On mouse-over
+  &:hover {
+    background-color: $color-brand-secondary-medium;
+  }
+
+  // When active
+  &:active {
+    background-color: $color-brand-secondary-dark;
+  }
+}
+
+// Tertiary color
+.btn-tertiary {
+  background-color: $color-brand-tertiary;
+
+  // On mouse-over
+  &:hover {
+    background-color: $color-brand-tertiary-medium;
+  }
+
+  // When active
+  &:active {
+    background-color: $color-brand-tertiary-dark;
+  }
+}
+
+// Hollow button
+.btn-hollow {
+  background-color: transparent;
+  border: solid 1px $color-brand-primary;
+  color: $color-brand-primary;
+
+  // On mouse-over
+  &:hover {
+    background-color: $color-neutral-light;
+  }
+
+  // When active
+  &:active {
+    background-color: $color-neutral-semimedium;
+  }
+
+  // When disabled
+  &:disabled {
+    background-color: $color-neutral-light;
+    border: $border-width-none;
+    color: $color-neutral-medium;
+  }
+}
+
+@media (min-width: 1920px) {
+  button {
+    font-size: $font-size-lg !important;
+  }
+}

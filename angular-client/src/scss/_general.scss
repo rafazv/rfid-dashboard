@@ -1,0 +1,124 @@
+// Css classes shared across all app
+
+//////////////////////////////////////////
+
+/*
+ * Page header
+*/
+
+.page-header {
+  margin: 20px 0;
+
+  h1 {
+    text-transform: capitalize;
+    font-family: "Poppins-bold";
+    font-size: $font-size-xxl;
+    color: $color-brand-primary;
+    margin-bottom: 12px;
+  }
+
+  span {
+    color: $color-neutral-dark;
+    font-size: $font-size-sm;
+    font-family: "Poppins-medium";
+    font-style: italic;
+  }
+}
+
+//////////////////////////////////////////
+
+/*
+ * Breadcrumb
+*/
+
+.breadcrumb {
+  display: flex;
+  padding: 0px;
+  margin-bottom: 0;
+}
+
+.breadcrumb > span + span > li:before {
+  content: "/";
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-size: 24px 24px !important;
+  vertical-align: middle;
+}
+
+.breadcrumb-item > a,
+.breadcrumb-item.active {
+  font-family: "Poppins-medium";
+  color: #616f8d;
+  background: none;
+  font-size: $font-size-sm;
+  min-width: auto;
+  padding: 0;
+  white-space: break-spaces;
+  text-transform: capitalize;
+}
+
+.breadcrumb-item.active > a {
+  cursor: text;
+  color: $color-brand-secondary;
+  text-decoration: none;
+  pointer-events: none;
+}
+
+.breadcrumb-item > a:hover {
+  text-decoration: none;
+}
+
+@media (max-width: 568px) {
+  .breadcrumb-item > a,
+  .breadcrumb-item.active > a {
+    font-size: $font-size-xs;
+  }
+}
+
+//////////////////////////////////////////
+
+/*
+ * Elements inside form
+*/
+
+.divider {
+  height: 2px;
+  width: 55px;
+  background-color: #00000029;
+  margin-top: 10px;
+  margin-bottom: 12px;
+}
+
+.form-title {
+  text-transform: uppercase;
+  color: $color-brand-primary;
+  font-family: "Poppins-bold" !important;
+  margin-bottom: 0 !important;
+}
+
+//////////////////////////////////////////
+
+/*
+ * Button
+*/
+
+button {
+  font-family: "Poppins-regular" !important;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  margin-top: 40px;
+
+  .cancel-btn,
+  .confirm-btn {
+    padding: 10px 45px;
+  }
+
+  .cancel-btn {
+    margin-right: 15px;
+  }
+}

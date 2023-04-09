@@ -1,0 +1,101 @@
+// Angular Material theme
+@import "theme";
+
+// Reset brings sanity when dealing with cross-browser style inconsistencies
+@import "scss/_reset";
+
+// Design tokens
+@import "scss/_variables";
+
+// Base components styles
+@import "scss/_base-components";
+
+// General styles
+@import "scss/_general";
+
+// Font family
+@font-face {
+  font-family: "Poppins-regular";
+  font-weight: 400;
+  src: url("./assets/fonts/Poppins-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Poppins-medium";
+  font-weight: 400;
+  src: url("./assets/fonts/Poppins-Medium.ttf");
+}
+
+@font-face {
+  font-family: "Poppins-light";
+  font-weight: 400;
+  src: url("./assets/fonts/Poppins-Light.ttf");
+}
+
+@font-face {
+  font-family: "Poppins-bold";
+  font-weight: 400;
+  src: url("./assets/fonts/Poppins-Bold.ttf");
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Lato, "Helvetica Neue", sans-serif !important;
+  background-color: $color-background;
+}
+
+table {
+  width: 100%;
+  box-shadow: none !important;
+  table-layout: fixed;
+}
+
+td {
+  overflow: hidden !important;
+  width: auto !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+
+  &:hover {
+    overflow: auto !important;
+    white-space: unset !important;
+    text-overflow: unset !important;
+  }
+}
+
+p span {
+  font-weight: bold;
+}
+
+@media (max-width: 767px) {
+  h1 {
+    font-size: $font-size-xl;
+  }
+}
+
+@media (min-width: 1920px) {
+  h1 {
+    font-size: $font-size-xxxl;
+  }
+}
+
+@media print {
+  .no-print,
+  .no-print * {
+    display: none !important;
+  }
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

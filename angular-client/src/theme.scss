@@ -1,0 +1,170 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+// Plus imports for other components in your app.
+@import "scss/_palette.scss";
+@import "scss/_variables.scss";
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$rfid-dashboard-primary: mat.define-palette($primary-palette);
+$rfid-dashboard-accent: mat.define-palette($accent-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$rfid-dashboard-warn: mat.define-palette($warn-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$rfid-dashboard-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $rfid-dashboard-primary,
+      accent: $rfid-dashboard-accent,
+      warn: $rfid-dashboard-warn,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($rfid-dashboard-theme);
+
+/*
+ * Angular material custom css
+ */
+
+//////////////////////////////////////////
+
+/*
+ * Mat Toolbar
+*/
+
+.mat-toolbar {
+  background-color: $color-brand-primary;
+  height: 64px;
+}
+
+.mat-list-item .mat-list-item-content {
+  justify-content: center;
+}
+
+.mat-list-base {
+  padding-top: 0px !important;
+}
+
+//////////////////////////////////////////
+
+/*
+ * Mat Tooltip
+*/
+
+.tooltip-brand-primary {
+  background: $color-brand-primary;
+  max-width: unset !important;
+}
+
+.tooltip-brand-secondary {
+  background: $color-brand-secondary;
+  max-width: unset !important;
+}
+
+//////////////////////////////////////////
+
+/*
+ * Mat Tab
+*/
+
+.mat-tab-label .mat-tab-label-content {
+  text-transform: uppercase;
+  font-size: $font-size-lg;
+  color: $color-neutral-medium;
+  font-family: "Poppins-medium";
+}
+
+.mat-tab-label:not(.mat-disabled) {
+  opacity: unset;
+}
+
+.mat-tab-header {
+  margin-bottom: 40px;
+  border-bottom: hidden;
+}
+
+.mat-tab-label-active .mat-tab-label-content {
+  color: $color-brand-primary;
+  font-family: "Poppins-bold";
+}
+
+.mat-tab-label-active {
+  border-bottom: 2px solid $color-brand-primary;
+}
+
+.mat-ink-bar {
+  display: none !important;
+}
+
+//////////////////////////////////////////
+
+/*
+ * Mat Table
+*/
+
+.mat-table-content {
+  font-family: "Poppins-regular";
+  box-shadow: unset;
+  margin-bottom: 30px;
+  color: $color-neutral-dark;
+}
+
+.mat-header-row:first-child {
+  border-bottom-color: $color-brand-primary-darkest;
+  border-bottom-width: 2px;
+}
+
+.mat-header-cell {
+  text-transform: uppercase;
+  font-family: "Poppins-bold";
+  font-size: $font-size-xs;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.mat-mini-fab {
+  background-color: $color-neutral-lightest !important;
+
+  .mat-icon {
+    color: $color-brand-primary-darkest;
+  }
+}
+
+.mat-mini-fab:disabled {
+  background-color: $color-neutral-light !important;
+
+  .mat-icon {
+    color: $color-neutral-medium;
+  }
+}
+
+.mat-menu-item {
+  color: $color-brand-primary-darkest;
+  font-family: "Poppins-regular";
+}
+
+//////////////////////////////////////////
+
+/*
+ * Mat Dialog
+*/
+
+.mat-dialog-container {
+  padding: 40px !important;
+}

@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  postgres-db:
+    container_name: rfid-postgres
+    image: postgres:13.5-alpine
+    environment:
+      POSTGRES_USER: rfid-dash
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: rfid-dash
+      PGDATA: /data/postgres
+      TZ: America/Manaus
+    ports:
+      - '5436:5432'
+    restart: unless-stopped

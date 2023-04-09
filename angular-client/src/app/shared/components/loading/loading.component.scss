@@ -1,0 +1,38 @@
+@import '_variables';
+
+#http-loader {
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 9999;
+}
+
+.loader-bg {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background: #18191a45 0% 0% no-repeat padding-box;
+  opacity: 1;
+}
+
+.loader {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 767px) {
+  .loader {
+    top: 50%;
+  }
+}
+
+@media print {
+  #http-loader {
+    display: none;
+  }
+}

@@ -1,0 +1,14 @@
+@import "_variables";
+
+.mat-toolbar {
+  padding: 30px 50px;
+  display: flex;
+  justify-content: space-between;
+
+  span {
+    font-size: $font-size-lg;
+    color: $color-neutral-lightest;
+    font-family: "Poppins-bold";
+    cursor: pointer;
+  }
+}

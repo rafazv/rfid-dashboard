@@ -1,0 +1,30 @@
+<div mat-dialog-title>
+  <img class="icon-title" [src]="iconPath" />
+  <h1 class="title">{{ title | translate }}</h1>
+</div>
+<div
+  mat-dialog-content
+  [innerHTML]="body | translate: bodyParam"
+  class="modal-content"
+></div>
+<div mat-dialog-actions>
+  <button
+    *ngIf="hasCancel"
+    class="btn btn-hollow btn-lg cancel-btn"
+    [ngClass]="{ 'btn-width': cancelText }"
+    (click)="onCancel()"
+  >
+    {{ cancelText || 'general.no' | translate }}
+  </button>
+  <button
+    class="btn btn-primary btn-lg confirm-btn"
+    [ngClass]="{ 'btn-width': confirmText }"
+    color="primary"
+    (click)="onConfirm()"
+  >
+    <span *ngIf="hasCancel">{{
+      confirmText || 'general.yes' | translate
+    }}</span>
+    <span *ngIf="!hasCancel">{{ 'general.ok' | translate }}</span>
+  </button>
+</div>
