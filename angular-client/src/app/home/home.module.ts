@@ -6,6 +6,7 @@ import { HomeComponent, homeRoute } from './';
 
 import { SharedModule } from '../shared/shared.module';
 import { WelcomeModule } from './welcome/welcome.module';
+import { UsersModule } from './users/users.module';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -14,6 +15,7 @@ import { WelcomeModule } from './welcome/welcome.module';
     SharedModule,
     RouterModule.forChild([homeRoute]),
     WelcomeModule,
+    UsersModule,
   ],
 })
 export class HomeModule {}

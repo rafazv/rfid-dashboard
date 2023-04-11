@@ -1,0 +1,27 @@
+@import "_variables";
+
+div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  font-family: "Poppins-regular";
+
+  h1 {
+    color: $color-brand-primary-darkest;
+  }
+
+  h2 {
+    margin: 15px 0;
+    color: $color-brand-primary-dark;
+  }
+
+  ul {
+    font-size: $font-size-md;
+    color: $color-text;
+
+    li {
+      margin-top: 8px;
+    }
+  }
+}

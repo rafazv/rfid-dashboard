@@ -66,7 +66,7 @@
     "saved": "Cadastro salvo com sucesso",
     "not-found": "Cadastro não encontrado"
   },
-  "user": {
+  "users": {
     "list-error": "Erro ao carregar os dados de usuários",
     "full-name": "Nome completo",
     "name": "Nome",
@@ -101,5 +101,14 @@
   },
   "dashboard": {
     "dashboard": "Dashboard"
+  },
+  "welcome": {
+    "welcome-to-text": "Bem-vindo ao RFID Dashboard!",
+    "second-text": "Aqui você poderá:",
+    "bullet-1": "Cadastrar novos inquilinos e suas chaves RFID",
+    "bullet-2": "Editar suas informações",
+    "bullet-3": "Deletá-los",
+    "bullet-4": "Inabilitá-los",
+    "bullet-5": "Além de conseguir visualizar através de gráficos o momento em que seus controles RFID foram acionados no portão!"
   }
 }

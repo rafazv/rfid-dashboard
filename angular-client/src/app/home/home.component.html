@@ -1,8 +1,8 @@
 <mat-toolbar>
-  <span>RFID Dashboard</span>
+  <span routerLink="/welcome">RFID Dashboard</span>
   <div>
-    <button class="btn btn-md btn-icon btn-primary">
-      {{ "user.users" | translate }}
+    <button class="btn btn-md btn-icon btn-primary" routerLink="/users">
+      {{ "users.users" | translate }}
     </button>
     <button class="btn btn-md btn-icon btn-primary">
       {{ "dashboard.dashboard" | translate }}
@@ -10,4 +10,4 @@
   </div>
 </mat-toolbar>
 
-<div><router-outlet></router-outlet></div>
+<div class="home-container"><router-outlet></router-outlet></div>

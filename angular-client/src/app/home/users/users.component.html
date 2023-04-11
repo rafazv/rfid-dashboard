@@ -1,0 +1,42 @@
+<div>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li
+        [ngClass]="
+          routeActive === '/users'
+            ? 'breadcrumb-item active'
+            : 'breadcrumb-item'
+        "
+      >
+        <a (click)="backToList()" mat-flat-button class="p-0 breadcrumb-button">
+          {{ "users.list" | translate }}
+        </a>
+      </li>
+      <li
+        [ngClass]="
+          routeActive === '/users/register'
+            ? 'breadcrumb-item active'
+            : 'breadcrumb-item'
+        "
+        *ngIf="routeActive === '/users/register'"
+      >
+        <a mat-flat-button class="p-0 breadcrumb-button">
+          {{ "users.register" | translate }}
+        </a>
+      </li>
+      <li
+        [ngClass]="
+          routeActive.startsWith('/users/edit')
+            ? 'breadcrumb-item active'
+            : 'breadcrumb-item'
+        "
+        *ngIf="routeActive.startsWith('/users/edit')"
+      >
+        <a mat-flat-button class="p-0 breadcrumb-button">
+          {{ "users.update" | translate }}
+        </a>
+      </li>
+    </ol>
+  </nav>
+</div>
+<router-outlet></router-outlet>
