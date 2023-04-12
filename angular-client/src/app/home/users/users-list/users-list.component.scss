@@ -1,0 +1,82 @@
+@import "_variables";
+
+.action-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search-container {
+  margin-top: 25px;
+
+  mat-form-field {
+    width: 500px;
+  }
+
+  mat-icon {
+    color: $color-brand-primary;
+  }
+}
+
+mat-card {
+  padding: 0;
+
+  .status-text {
+    text-transform: uppercase;
+  }
+
+  .status-tag {
+    min-height: 48px;
+    min-width: 5px;
+    margin-right: 15px;
+  }
+
+  .active-status,
+  .desactive-status {
+    font-family: "Poppins-bold";
+  }
+
+  .active-status {
+    background-color: $color-suport-success;
+    color: $color-neutral-lightest;
+  }
+
+  .desactive-status {
+    margin-bottom: 1px;
+    background-color: $color-neutral-light;
+    color: $color-neutral-medium;
+  }
+
+  .mat-cell.mat-column-name span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mat-cell.mat-column-name span:hover {
+    white-space: unset;
+    overflow: auto;
+    text-overflow: unset;
+  }
+
+  .actions-buttons {
+    button {
+      background-color: $color-brand-primary;
+
+      mat-icon {
+        color: $color-neutral-lightest;
+      }
+    }
+
+    button:first-child {
+      margin-right: 15px;
+    }
+  }
+}
+
+@media (max-width: 968px) {
+  .mat-header-cell.mat-column-status,
+  mat-cell.mat-column-status {
+    display: none;
+  }
+}

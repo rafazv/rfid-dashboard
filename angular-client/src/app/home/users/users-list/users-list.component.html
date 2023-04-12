@@ -1,1 +1,181 @@
-<p>users-list works!</p>
+<div>
+  <div class="page-header">
+    <h1>{{ "users.users" | translate }}</h1>
+    <span>{{ "users.list-info" | translate }}</span>
+  </div>
+
+  <div class="action-container">
+    <div class="search-container">
+      <mat-form-field appearance="outline">
+        <mat-label>{{ "general.search" | translate }}</mat-label>
+        <input
+          #search
+          matInput
+          noWhiteSpace
+          placeholder="{{ 'general.name' | translate }}, {{
+            'general.rfid' | translate
+          }}, {{ 'general.apto-number' | translate }}"
+          name="search"
+          [(ngModel)]="filterValue"
+          (keyup.enter)="applyFilter(search)"
+          [disabled]="emptyList"
+        />
+        <button
+          type="button"
+          mat-icon-button
+          matSuffix
+          class="search-button"
+          (click)="applyFilter(search)"
+          [disabled]="emptyList"
+        >
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <button
+      class="btn btn-secondary btn-md"
+      routerLink="register"
+      type="button"
+    >
+      {{ "users.create-user" | translate }}
+    </button>
+  </div>
+
+  <mat-card>
+    <mat-table [dataSource]="dataSource" class="mat-table-content" matSort>
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>
+          {{ "general.name" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <span>
+            {{ element.name }}
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Apto Number Column -->
+      <ng-container matColumnDef="aptoNumber">
+        <mat-header-cell *matHeaderCellDef>
+          {{ "general.apto-number" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <span>{{ element.aptoNumber }}</span>
+        </mat-cell>
+      </ng-container>
+
+      <!-- RFID Column -->
+      <ng-container matColumnDef="rfid">
+        <mat-header-cell *matHeaderCellDef>
+          {{ "general.rfid" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.rfid }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <mat-header-cell
+          class="justify-content-center status-column"
+          *matHeaderCellDef
+        >
+          {{ "users.status" | translate }}
+        </mat-header-cell>
+        <mat-cell
+          *matCellDef="let element"
+          class="justify-content-center status-text status-column"
+          [ngClass]="element.disabled ? 'desactive-status' : 'active-status'"
+        >
+          <div>
+            {{
+              element.disabled
+                ? ("general.inactive" | translate)
+                : ("general.active" | translate)
+            }}
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef class="justify-content-center">
+          {{ "general.actions" | translate }}
+        </mat-header-cell>
+        <mat-cell
+          *matCellDef="let element"
+          class="justify-content-center actions-buttons"
+        >
+          <button
+            mat-mini-fab
+            [routerLink]="['/users/edit', element.id]"
+            [matMenuTriggerFor]="actions"
+            matTooltip="{{ 'general.edit' | translate }}"
+            [matTooltipClass]="'tooltip-brand-primary'"
+            matTooltipPosition="below"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            mat-mini-fab
+            [matMenuTriggerFor]="actions"
+            matTooltip="{{ 'general.options' | translate }}"
+            [matTooltipClass]="'tooltip-brand-primary'"
+            matTooltipPosition="below"
+          >
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #actions="matMenu" yPosition="below" xPosition="after">
+            <button mat-menu-item (click)="openDeleteDialog(element)">
+              {{ "general.delete" | translate }}
+            </button>
+            <button mat-menu-item (click)="openDeleteDialog(element)">
+              {{ "general.disable" | translate }}
+            </button>
+          </mat-menu>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+      <ng-container>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="empty-list" colspan="5">
+            <ng-container
+              *ngIf="this.dataSource.filter.length > 0; then emptyFilter"
+            >
+            </ng-container>
+            <ng-template #emptyList>
+              <app-empty-list
+                [titleMessage]="titleMessageEmptyList"
+                [secMessage]="secMessageEmptyList"
+              ></app-empty-list>
+            </ng-template>
+            <ng-template #emptyFilter>
+              <app-empty-list
+                [titleMessage]="titleMessageFiltered"
+                [secMessage]="secMessageFiltered"
+              ></app-empty-list>
+            </ng-template>
+          </td>
+        </tr>
+      </ng-container>
+    </mat-table>
+
+    <div class="col-12 empty-list">
+      <app-empty-list
+        *ngIf="noResultList"
+        [titleMessage]="titleMessage"
+        [secMessage]="secMessage"
+      ></app-empty-list>
+    </div>
+
+    <mat-paginator
+      [length]="listTotal"
+      [pageSize]="15"
+      [pageSizeOptions]="[5, 10, 15]"
+    ></mat-paginator>
+  </mat-card>
+</div>

@@ -34,7 +34,10 @@
     "name": "Nome",
     "change": "Alterar",
     "home": "Home",
-    "search": "Pesquisar..."
+    "search": "Pesquisar...",
+    "rfid": "Número RFID",
+    "apto-number": "Número do Apto",
+    "disable": "Desabilitar"
   },
   "error": {
     "field-invalid": "Dado inválido",
