@@ -131,7 +131,11 @@
               {{ "general.delete" | translate }}
             </button>
             <button mat-menu-item (click)="openDisableDialog(element)">
-              {{ "general.disable" | translate }}
+              {{
+                element.disabled
+                  ? ("general.enable" | translate)
+                  : ("general.disable" | translate)
+              }}
             </button>
           </mat-menu>
         </mat-cell>

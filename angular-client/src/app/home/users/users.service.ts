@@ -18,7 +18,7 @@ export class UsersService {
       .pipe(tap((data) => this.userListSource.next(data)));
   }
 
-  findById(id: any) {
+  findOne(id: any) {
     return this.apiService.get(`/users/${id}`);
   }
 

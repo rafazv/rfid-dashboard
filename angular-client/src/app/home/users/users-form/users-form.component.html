@@ -1,1 +1,91 @@
-<p>users-form works!</p>
+<mat-card>
+  <h2 class="form-title">
+    {{ "general.register-data" | translate }}
+  </h2>
+  <div class="divider"></div>
+
+  <div class="card-content">
+    <form #userForm="ngForm">
+      <mat-form-field hideRequiredMarker appearance="outline">
+        <mat-label>{{ "users.full-name" | translate }}</mat-label>
+        <input
+          matInput
+          noWhiteSpace
+          noSpecialCharacters
+          type="text"
+          name="name"
+          #name="ngModel"
+          [(ngModel)]="user.name"
+          required
+          [maxlength]="100"
+        />
+        <mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
+          <div *ngIf="name.errors?.['required']">
+            {{ "error.field-required" | translate }}
+          </div>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field hideRequiredMarker appearance="outline">
+        <mat-label>{{ "general.apto-number" | translate }}</mat-label>
+        <input
+          matInput
+          noWhiteSpace
+          noSpecialCharacters
+          type="number"
+          name="aptoNumber"
+          #aptoNumber="ngModel"
+          [(ngModel)]="user.aptoNumber"
+          required
+          [maxlength]="2"
+        />
+        <mat-error
+          *ngIf="aptoNumber.invalid && (aptoNumber.dirty || aptoNumber.touched)"
+        >
+          <div *ngIf="aptoNumber.errors?.['required']">
+            {{ "error.field-required" | translate }}
+          </div>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field hideRequiredMarker appearance="outline">
+        <mat-label>{{ "general.rfid" | translate }}</mat-label>
+        <input
+          matInput
+          noWhiteSpace
+          noSpecialCharacters
+          type="text"
+          name="rfid"
+          #rfid="ngModel"
+          [(ngModel)]="user.rfid"
+          required
+          [maxlength]="10"
+        />
+        <mat-error *ngIf="rfid.invalid && (rfid.dirty || rfid.touched)">
+          <div *ngIf="rfid.errors?.['required']">
+            {{ "error.field-required" | translate }}
+          </div>
+          <div *ngIf="rfid.errors?.['exists']">
+            {{ "error.rfid-exists" | translate }}
+          </div>
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+</mat-card>
+
+<div class="action-buttons">
+  <button
+    class="btn btn-hollow btn-lg cancel-btn"
+    type="button"
+    (click)="backToList()"
+  >
+    {{ "general.cancel" | translate }}
+  </button>
+  <button
+    class="btn btn-primary btn-lg confirm-btn"
+    (click)="user.id ? updateUser() : saveUser()"
+    type="button"
+    [disabled]="!userForm.valid"
+  >
+    {{ "general.save" | translate }}
+  </button>
+</div>

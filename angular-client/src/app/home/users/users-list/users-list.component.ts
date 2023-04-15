@@ -188,8 +188,8 @@ export class UsersListComponent implements OnInit, AfterViewInit {
       width: '410px',
       autoFocus: false,
       data: {
-        title: 'users.disable-user',
-        body: 'users.disable-text',
+        title: user.disabled ? 'users.enable-user' : 'users.disable-user',
+        body: user.disabled ? 'users.enable-text' : 'users.disable-text',
         bodyParam: user,
         hasCancel: true,
       },
@@ -203,7 +203,10 @@ export class UsersListComponent implements OnInit, AfterViewInit {
 
       this.usersService.disable(user.id).subscribe({
         next: (data) => {
-          this.openFeedbackDialog('general.done', 'users.disabled');
+          this.openFeedbackDialog(
+            'general.done',
+            user.disabled ? 'users.enabled' : 'users.disabled'
+          );
         },
         error: (err) => {
           this.openFeedbackDialog('general.error', 'error.disable-error');

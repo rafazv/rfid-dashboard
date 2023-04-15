@@ -38,7 +38,7 @@
 }
 
 .breadcrumb > span + span > li:before {
-  content: "/";
+  content: ">";
   display: inline-block;
   background-repeat: no-repeat;
   background-size: 24px 24px !important;
@@ -86,7 +86,7 @@
   width: 55px;
   background-color: #00000029;
   margin-top: 10px;
-  margin-bottom: 12px;
+  margin-bottom: 25px;
 }
 
 .form-title {

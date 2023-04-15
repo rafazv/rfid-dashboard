@@ -4,7 +4,6 @@
     "confirm": "Confirmar",
     "cancel": "Cancelar",
     "save": "Salvar",
-    "email": "E-mail",
     "username": "Usuário",
     "password": "Senha",
     "sign-in": "Entrar",
@@ -38,7 +37,9 @@
     "rfid": "Número RFID",
     "apto-number": "Número do Apto",
     "disable": "Desabilitar",
-    "error": "Erro!"
+    "enable": "Habilitar",
+    "error": "Erro!",
+    "register-data": "Dados cadastrais"
   },
   "error": {
     "field-invalid": "Dado inválido",
@@ -46,14 +47,12 @@
     "field-minlength": "Este campo requer no mínimo {{ value }} caracteres",
     "field-range": "Este campo requer valores entre {{ min }} e {{ max }}",
     "server": "Erro no servidor",
-    "invalid-credentials": "Credenciais inválidas",
-    "password-size": "A senha deve ter no mínimo 6 caracteres",
     "invalid-confirmation": "Os dados não correspondem",
-    "email-not-found": "E-mail não encontrado",
     "invalid-password": "Senha atual inválida",
     "save-error": "Erro ao salvar o cadastro",
     "delete-error": "Erro ao excluir o cadastro",
-    "disable-error": "Erro ao desabilitar o cadastro"
+    "disable-error": "Erro ao desabilitar o cadastro",
+    "rfid-exists": "Número RFID já cadastrado"
   },
   "paginator": {
     "of": "de",
@@ -68,40 +67,35 @@
     "no-result-message": "Verifique os dados e tente novamente."
   },
   "register": {
-    "saved": "Cadastro salvo com sucesso",
+    "saved": "Informações salvas com sucesso",
     "not-found": "Cadastro não encontrado"
   },
   "users": {
     "list-error": "Erro ao carregar os dados de usuários",
     "full-name": "Nome completo",
     "name": "Nome",
-    "role": "Perfil",
-    "email": "E-mail",
-    "optional-phone": "Telefone (Opcional)",
     "status": "Status",
     "actions": "Ações",
     "users": "Usuários",
     "list": "Lista de usuários",
     "list-info": "Você visualizará todos os usuários cadastrados.",
     "update-error": "Erro ao atualizar dados",
-    "create-user": "Criar usuário",
-    "create-user-info": "Você irá cadastrar um usuário",
-    "edit-user": "Editar usuário",
-    "edit-user-info": "Você irá editar os dados cadastrais deste usuário",
     "created": "Usuário criado",
-    "my-profile": "Meu perfil",
-    "my-profile-info": "Você irá visualizar os seus dados cadastrais.",
     "no-users-text": "Cadastre um novo usuário!",
     "empty-users-list": "Para começar os cadastros, clique no botão <br/> superior direito <span>CRIAR USUÁRIO<span>.",
     "delete-text": "Você realmente deseja excluir o usuário?",
     "delete-user": "Excluir usuário",
     "disable-user": "Desabilitar usuário",
+    "enable-user": "Habilitar usuário",
     "delete-confirm-text": "Os dados do usuário não poderão ser recuperados.",
     "deleted": "Usuário excluido com sucesso.",
     "disable-text": "Você tem certeza que deseja desabilitar o usuário?",
+    "enable-text": "Você tem certeza que deseja habilitar o usuário?",
     "disabled": "Usuário desabilitado com sucesso.",
-    "admin": "Administrador",
-    "select-role": "Selecione o perfil"
+    "enabled": "Usuário habilitado com sucesso.",
+    "register": "Cadastrar usuário",
+    "update": "Atualizar usuário",
+    "create-user": "Criar usuário"
   },
   "dashboard": {
     "dashboard": "Dashboard"
