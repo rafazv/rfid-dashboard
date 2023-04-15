@@ -168,3 +168,23 @@ $rfid-dashboard-theme: mat.define-light-theme(
 .mat-dialog-container {
   padding: 40px !important;
 }
+
+.mat-mdc-dialog-container .mdc-dialog__title {
+  color: $color-brand-primary-darkest !important;
+  font-family: "Poppins-bold" !important;
+
+  h1 {
+    font-size: $font-size-xl !important;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+  }
+}
+
+.mat-mdc-dialog-actions {
+  padding: 20px !important;
+  justify-content: center !important;
+
+  button:first-child {
+    margin-right: 15px;
+  }
+}

@@ -37,7 +37,8 @@
     "search": "Pesquisar...",
     "rfid": "Número RFID",
     "apto-number": "Número do Apto",
-    "disable": "Desabilitar"
+    "disable": "Desabilitar",
+    "error": "Erro!"
   },
   "error": {
     "field-invalid": "Dado inválido",
@@ -51,7 +52,8 @@
     "email-not-found": "E-mail não encontrado",
     "invalid-password": "Senha atual inválida",
     "save-error": "Erro ao salvar o cadastro",
-    "delete-error": "Erro ao excluir o cadastro"
+    "delete-error": "Erro ao excluir o cadastro",
+    "disable-error": "Erro ao desabilitar o cadastro"
   },
   "paginator": {
     "of": "de",
@@ -91,14 +93,13 @@
     "my-profile-info": "Você irá visualizar os seus dados cadastrais.",
     "no-users-text": "Cadastre um novo usuário!",
     "empty-users-list": "Para começar os cadastros, clique no botão <br/> superior direito <span>CRIAR USUÁRIO<span>.",
-    "delete-text": "Você realmente deseja excluir o usuário </br><span><strong>{{email}}</strong></span>?",
+    "delete-text": "Você realmente deseja excluir o usuário?",
     "delete-user": "Excluir usuário",
-    "delete-confirm-text": "Os dados do usuário </br><span><strong>{{email}}</strong></span> </br> não poderão ser recuperados.",
+    "disable-user": "Desabilitar usuário",
+    "delete-confirm-text": "Os dados do usuário não poderão ser recuperados.",
     "deleted": "Usuário excluido com sucesso.",
-    "inactivate-text": "O usuário <span><strong>{{email}}</strong></span> </br> perderá o acesso ao sistema, você pode ativá-lo novamente quando necessário.",
-    "activate-text": "O usuário <span><strong>{{email}}</strong></span> </br> terá acesso ao sistema, você pode inativá-lo quando necessário.",
-    "activated": "Usuário ativado com sucesso.",
-    "inactivated": "Usuário inativado com sucesso.",
+    "disable-text": "Você tem certeza que deseja desabilitar o usuário?",
+    "disabled": "Usuário desabilitado com sucesso.",
     "admin": "Administrador",
     "select-role": "Selecione o perfil"
   },

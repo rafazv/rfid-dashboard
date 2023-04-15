@@ -1,17 +1,9 @@
-@import '_variables.scss';
+@import "_variables.scss";
 
 div.mat-dialog-title {
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  h1.title {
-    margin-bottom: 0;
-    text-transform: uppercase;
-    font-size: $font-size-xl;
-    font-family: 'Satoshi-bold';
-    color: $color-brand-primary;
-  }
 
   .icon-title {
     margin-bottom: 20px;
@@ -24,7 +16,7 @@ div.mat-dialog-title {
   line-height: 25px;
   color: $color-text;
   font-size: $font-size-md;
-  font-family: 'Satoshi-regular';
+  font-family: "Poppins-regular";
 }
 
 div.mat-dialog-actions {
@@ -35,7 +27,7 @@ div.mat-dialog-actions {
 
   .cancel-btn,
   .confirm-btn {
-    font-family: 'Satoshi-regular';
+    font-family: "Poppins-regular";
     padding: 10px 45px;
   }
 

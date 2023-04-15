@@ -4,7 +4,7 @@
 </div>
 <div
   mat-dialog-content
-  [innerHTML]="body | translate: bodyParam"
+  [innerHTML]="body | translate : bodyParam"
   class="modal-content"
 ></div>
 <div mat-dialog-actions>
@@ -14,7 +14,7 @@
     [ngClass]="{ 'btn-width': cancelText }"
     (click)="onCancel()"
   >
-    {{ cancelText || 'general.no' | translate }}
+    {{ cancelText || "general.no" | translate }}
   </button>
   <button
     class="btn btn-primary btn-lg confirm-btn"
@@ -23,8 +23,8 @@
     (click)="onConfirm()"
   >
     <span *ngIf="hasCancel">{{
-      confirmText || 'general.yes' | translate
+      confirmText || "general.yes" | translate
     }}</span>
-    <span *ngIf="!hasCancel">{{ 'general.ok' | translate }}</span>
+    <span *ngIf="!hasCancel">{{ "general.ok" | translate }}</span>
   </button>
 </div>

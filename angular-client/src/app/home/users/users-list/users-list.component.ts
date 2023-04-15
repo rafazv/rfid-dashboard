@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
-import { LoadService } from '../../../shared';
+import { LoadService, ModalBasicComponent } from '../../../shared';
 import { UsersService } from '../users.service';
 
 export interface User {
@@ -55,7 +55,7 @@ export class UsersListComponent implements OnInit, AfterViewInit {
   secMessageFiltered = 'lists.no-result-message';
 
   constructor(
-    public matDialog: MatDialog,
+    public dialog: MatDialog,
     private usersService: UsersService,
     private loadService: LoadService
   ) {}
@@ -109,7 +109,7 @@ export class UsersListComponent implements OnInit, AfterViewInit {
       this.dataSource.data = data.result;
     }
 
-    this.listTotal = data.count;
+    this.listTotal = data.total;
 
     this.noResultList = false;
     this.emptyList = false;
@@ -139,44 +139,94 @@ export class UsersListComponent implements OnInit, AfterViewInit {
   }
 
   openDeleteDialog(user: any): void {
-    // const dialogRef = this.dialog.openDialog({
-    //   title: 'user.delete-user',
-    //   body: 'user.delete-text',
-    //   bodyParam: user,
-    //   hasCancel: true,
-    //   iconPath: '../../../../assets/images/icons/exclamation-icon.svg',
-    // });
-    // dialogRef.afterClosed().subscribe((deleteUser) => {
-    //   if (!deleteUser) {
-    //     return;
-    //   }
-    //   const dialogRefConfirm = this.dialog.openDialog({
-    //     title: 'user.delete-user',
-    //     body: 'user.delete-confirm-text',
-    //     bodyParam: user,
-    //     hasCancel: true,
-    //     iconPath: '../../../../assets/images/icons/exclamation-icon.svg',
-    //   });
-    //   dialogRefConfirm.afterClosed().subscribe((confirmDelete) => {
-    //     if (!confirmDelete) {
-    //       return;
-    //     }
-    //     this.loadService.emitLoadEvent(true);
-    //     this.usersService.delete(user.id).subscribe({
-    //       next: () => {
-    //         const dialogSuccessRef =
-    //           this.dialog.openSuccessDialog('user.deleted');
-    //         this.loadService.emitLoadEvent(false);
-    //         dialogSuccessRef.afterClosed().subscribe(() => {
-    //           setTimeout(() => this.getUsers(), 1000);
-    //         });
-    //       },
-    //       error: () =>
-    //         this.dialog.openErrorDialog(
-    //           ErrorUtil.translateError('delete-error'),
-    //         ),
-    //     });
-    //   });
-    // });
+    const dialogRef = this.dialog.open(ModalBasicComponent, {
+      width: '410px',
+      autoFocus: false,
+      data: {
+        title: 'users.delete-user',
+        body: 'users.delete-text',
+        bodyParam: user,
+        hasCancel: true,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((deleteUser) => {
+      if (!deleteUser) {
+        return;
+      }
+
+      const dialogRefConfirm = this.dialog.open(ModalBasicComponent, {
+        width: '480px',
+        data: {
+          title: 'users.delete-user',
+          body: 'users.delete-confirm-text',
+          bodyParam: user,
+          hasCancel: true,
+        },
+      });
+
+      dialogRefConfirm.afterClosed().subscribe((confirmDelete) => {
+        if (!confirmDelete) {
+          return;
+        }
+        this.loadService.emitLoadEvent(true);
+
+        this.usersService.delete(user.id).subscribe({
+          next: (data) => {
+            this.openFeedbackDialog('general.done', 'users.deleted');
+          },
+          error: (err) => {
+            this.openFeedbackDialog('general.error', 'error.delete-error');
+          },
+        });
+      });
+    });
+  }
+
+  openDisableDialog(user: any): void {
+    const dialogRef = this.dialog.open(ModalBasicComponent, {
+      width: '410px',
+      autoFocus: false,
+      data: {
+        title: 'users.disable-user',
+        body: 'users.disable-text',
+        bodyParam: user,
+        hasCancel: true,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((confirmDisable) => {
+      if (!confirmDisable) {
+        return;
+      }
+      this.loadService.emitLoadEvent(true);
+
+      this.usersService.disable(user.id).subscribe({
+        next: (data) => {
+          this.openFeedbackDialog('general.done', 'users.disabled');
+        },
+        error: (err) => {
+          this.openFeedbackDialog('general.error', 'error.disable-error');
+        },
+      });
+    });
+  }
+
+  openFeedbackDialog(title: string, body: string) {
+    const dialogRef = this.dialog.open(ModalBasicComponent, {
+      width: '400px',
+      autoFocus: false,
+      data: {
+        body,
+        hasCancel: false,
+        title,
+      },
+    });
+
+    this.loadService.emitLoadEvent(false);
+
+    dialogRef.afterClosed().subscribe(() => {
+      setTimeout(() => this.getUsers(), 1000);
+    });
   }
 }
