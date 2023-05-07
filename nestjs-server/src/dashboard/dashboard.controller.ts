@@ -13,6 +13,7 @@ import { DashboardRepository } from './dashboard.repository';
 import { DashboardService } from './dashboard.service';
 import { CreateDashboardRegisterDto } from './dto/create-dashboard-register.dto';
 import { UserRepository } from 'src/users/user.repository';
+import { QueryDashboardDto } from './dto/query-dashboard.dto';
 
 @ApiTags('dashboard')
 @Controller('dashboard')
@@ -26,7 +27,7 @@ export class DashboardController {
   @Get()
   async findAll(
     @Query(ValidationPipe) { page, size }: PaginationDto,
-    @Query(ValidationPipe) searchQuery: SearchDto,
+    @Query(ValidationPipe) searchQuery: QueryDashboardDto,
   ) {
     return await this.dashboardService.findAll(searchQuery, page, size);
   }

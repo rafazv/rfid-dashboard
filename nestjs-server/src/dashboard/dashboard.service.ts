@@ -1,26 +1,42 @@
 import { Injectable } from '@nestjs/common';
 
 import { DashboardRepository } from './dashboard.repository';
-import { SearchDto } from 'src/shared';
+import { QueryDashboardDto } from './dto/query-dashboard.dto';
+import { Between } from 'typeorm';
 import { QueryUtil } from 'src/utils';
-import { UserRepository } from 'src/users/user.repository';
 
 @Injectable()
 export class DashboardService {
-  readonly filterColumns = [{ column: 'userId', type: 'uuid' }];
+  readonly filterColumns = [{ column: 'rfid', type: 'string' }];
 
-  constructor(
-    private dashboardRepository: DashboardRepository,
-    private userRepository: UserRepository,
-  ) {}
+  constructor(private dashboardRepository: DashboardRepository) {}
 
-  async findAll(searchQuery: SearchDto, page = 0, size = 10) {
-    const { search } = searchQuery;
-    const user = search
-      ? await this.userRepository.findOne({ where: { rfid: search } })
-      : null;
+  async findAll(
+    query: QueryDashboardDto = {
+      userId: '',
+      date: undefined,
+    },
+    page = 0,
+    size = 10,
+  ) {
+    const { date, userId } = query;
+    let dateFilter = undefined;
 
-    const where = user ? { userId: user.id } : null;
+    if (date) {
+      const start = new Date(date);
+      const end = new Date(date);
+
+      start.setHours(0, 0, 0);
+      end.setHours(23, 59, 59);
+
+      dateFilter = Between(start, end);
+    }
+
+    const where = QueryUtil.searchQuery(this.filterColumns, '', {
+      userId,
+      createdAt: dateFilter,
+    });
+
     const [result, total] = await this.dashboardRepository.findAndCount({
       where,
       skip: page * size,

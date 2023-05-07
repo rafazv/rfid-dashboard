@@ -1,22 +1,31 @@
 import { ILike } from 'typeorm';
 
 export class QueryUtil {
-  static searchQuery(columns, search) {
+  static searchQuery(columns, search, specificSearch = {}) {
     if (!columns || columns.length <= 0) return {};
 
-    const where = [];
+    let filter = [];
 
     if (search) {
-      where.pop();
-
       for (let i = 0; i < columns.length; i += 1) {
-        where.push({
+        filter.push({
           [columns[i].column]: this.buildQuery(columns[i], search),
         });
       }
     }
 
-    return where.length ? where : {};
+    for (const prop in specificSearch) {
+      if (specificSearch[prop]) {
+        if (filter.length === 0) filter.push({});
+
+        filter = filter.map((obj) => {
+          obj[prop] = specificSearch[prop];
+          return obj;
+        });
+      }
+    }
+
+    return filter.length ? filter : {};
   }
 
   private static buildQuery(prop, search) {
