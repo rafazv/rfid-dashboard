@@ -6,9 +6,14 @@ import { AppDataSource } from './configs/typeorm.config';
 import { TransformInterceptor } from './interceptors/transformer.interceptor';
 
 import { UsersModule } from './users/users.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(AppDataSource.options), UsersModule],
+  imports: [
+    TypeOrmModule.forRoot(AppDataSource.options),
+    UsersModule,
+    DashboardModule,
+  ],
   controllers: [AppController],
   providers: [
     {

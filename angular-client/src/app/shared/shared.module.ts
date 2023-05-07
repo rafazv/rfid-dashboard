@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 
-// import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 // Angular Material imports
 import { MatCardModule } from '@angular/material/card';
@@ -33,8 +33,6 @@ import {
   MatPaginatorIntl,
 } from '@angular/material/paginator';
 import { MatChipsModule } from '@angular/material/chips';
-
-// export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
 import {
   ApiService,
@@ -68,7 +66,8 @@ import {
     ReactiveFormsModule,
     MatTooltipModule,
     MatChipsModule,
-    // NgxMaskModule.forRoot(),
+    NgxMaskDirective,
+    NgxMaskPipe,
   ],
   declarations: [
     NoWhiteSpaceDirective,
@@ -106,7 +105,8 @@ import {
     EmptyListComponent,
     ReactiveFormsModule,
     MatChipsModule,
-    // NgxMaskModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
   ],
   providers: [
     ApiService,
@@ -119,6 +119,7 @@ import {
       },
       deps: [TranslateService],
     },
+    provideNgxMask(),
   ],
 })
 export class SharedModule {}

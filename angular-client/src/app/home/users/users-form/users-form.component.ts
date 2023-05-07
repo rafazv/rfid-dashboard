@@ -66,8 +66,6 @@ export class UsersFormComponent implements OnInit {
   saveUser() {
     this.loadService.emitLoadEvent(true);
 
-    this.user = { ...this.user, aptoNumber: this.user.aptoNumber.toString() };
-
     this.usersService.create(this.user).subscribe({
       next: () => {
         this.loadService.emitLoadEvent(false);
@@ -82,8 +80,6 @@ export class UsersFormComponent implements OnInit {
 
   updateUser() {
     this.loadService.emitLoadEvent(true);
-
-    this.user = { ...this.user, aptoNumber: this.user.aptoNumber.toString() };
 
     this.usersService.update(this.user).subscribe({
       next: () => {
