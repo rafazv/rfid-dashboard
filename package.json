@@ -1,0 +1,16 @@
+{
+	"name": "rfid-dashboard",
+	"version": "1.0.0",
+	"description": "It's a project to monitoring registered RFID's.",
+	"scripts": {
+		"preinstall": "cd angular-client && npm i && cd ../nestjs-server && npm i",
+		"start": "concurrently -c \"yellow.bold,green.bold\" -n \"SERVER,CLIENT\" \"cd nestjs-server && npm run start:dev\" \"cd angular-client && npm start\"",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"concurrently": "^8.0.1"
+	}
+}
