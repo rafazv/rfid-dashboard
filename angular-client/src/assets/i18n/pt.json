@@ -98,7 +98,8 @@
     "create-user": "Criar usuário"
   },
   "dashboard": {
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "dash-info": "Você visualizará informações sobre acesso dos inquilinos"
   },
   "welcome": {
     "welcome-to-text": "Bem-vindo ao RFID Dashboard!",

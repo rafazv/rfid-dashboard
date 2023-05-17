@@ -4,6 +4,7 @@ import { HomeComponent } from './home.component';
 
 import { welcomeRoute } from './welcome/welcome.route';
 import { usersRoute } from './users/users.route';
+import { dashboardRoute } from './dashboard';
 
 export const homeRoute: Route = {
   path: '',
@@ -11,6 +12,7 @@ export const homeRoute: Route = {
   children: [
     welcomeRoute,
     usersRoute,
+    dashboardRoute,
     {
       path: '**',
       redirectTo: '/welcome',
