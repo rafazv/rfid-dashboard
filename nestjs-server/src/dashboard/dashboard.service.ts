@@ -41,6 +41,7 @@ export class DashboardService {
       where,
       skip: page * size,
       take: size,
+      relations: ['user'],
     });
     return { result, total };
   }

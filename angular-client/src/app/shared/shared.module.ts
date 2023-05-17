@@ -8,8 +8,11 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { NgChartsModule } from 'ng2-charts';
 
 // Angular Material imports
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
@@ -61,6 +64,8 @@ import {
     MatSidenavModule,
     MatToolbarModule,
     MatSortModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatSelectModule,
     MatFormFieldModule,
     ReactiveFormsModule,
@@ -68,6 +73,7 @@ import {
     MatChipsModule,
     NgxMaskDirective,
     NgxMaskPipe,
+    NgChartsModule,
   ],
   declarations: [
     NoWhiteSpaceDirective,
@@ -83,6 +89,8 @@ import {
     RouterModule,
     NoWhiteSpaceDirective,
     OnlyNumbersDirective,
+    MatDatepickerModule,
+    MatNativeDateModule,
     LoadingComponent,
     ModalBasicComponent,
     MatCardModule,
@@ -107,6 +115,7 @@ import {
     MatChipsModule,
     NgxMaskDirective,
     NgxMaskPipe,
+    NgChartsModule,
   ],
   providers: [
     ApiService,
