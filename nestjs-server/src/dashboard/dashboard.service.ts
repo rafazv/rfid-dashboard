@@ -2,22 +2,25 @@ import { Injectable } from '@nestjs/common';
 
 import { DashboardRepository } from './dashboard.repository';
 import { QueryDashboardDto } from './dto/query-dashboard.dto';
-import { Between } from 'typeorm';
+import { Between, DataSource } from 'typeorm';
 import { QueryUtil } from 'src/utils';
+import { Dashboard } from './entities/dashboard.entity';
+import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class DashboardService {
   readonly filterColumns = [{ column: 'rfid', type: 'string' }];
 
-  constructor(private dashboardRepository: DashboardRepository) {}
+  constructor(
+    private readonly dashboardRepository: DashboardRepository,
+    private readonly dataSource: DataSource,
+  ) {}
 
   async findAll(
     query: QueryDashboardDto = {
       userId: '',
       date: undefined,
     },
-    page = 0,
-    size = 10,
   ) {
     const { date, userId } = query;
     let dateFilter = undefined;
@@ -37,12 +40,24 @@ export class DashboardService {
       createdAt: dateFilter,
     });
 
-    const [result, total] = await this.dashboardRepository.findAndCount({
-      where,
-      skip: page * size,
-      take: size,
-      relations: ['user'],
+    const result = await this.dataSource
+      .createQueryBuilder(Dashboard, 'dashboard')
+      .select(
+        "TO_CHAR(dashboard.createdAt, 'YYYY-MM-DD HH24') as datetime, COUNT(*) as count, user.name",
+      )
+      .leftJoin(User, 'user', 'user.id = dashboard.userId')
+      .where(where)
+      .groupBy('user.name, datetime')
+      .getRawMany();
+
+    const labels = [];
+    const datasets = [];
+    result.forEach((item: any) => {
+      datasets.push({ label: item.name, data: item.count });
+      labels.push(item.datetime);
     });
-    return { result, total };
+
+    return { datasets, labels };
+    // return { result };
   }
 }

@@ -256,7 +256,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{api_url}}/dashboard?page=0&size=5",
+							"raw": "{{api_url}}/dashboard?date=2023-05-06 12:21:17.726",
 							"host": [
 								"{{api_url}}"
 							],
@@ -265,22 +265,8 @@
 							],
 							"query": [
 								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "size",
-									"value": "5"
-								},
-								{
-									"key": "userId",
-									"value": "0fdbd155-902f-4aac-8341-41632dbee849",
-									"disabled": true
-								},
-								{
 									"key": "date",
-									"value": "2023-05-06 12:21:17.726",
-									"disabled": true
+									"value": "2023-05-06 12:21:17.726"
 								}
 							]
 						}
