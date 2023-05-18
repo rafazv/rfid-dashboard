@@ -16,7 +16,7 @@ export class DashboardService {
     private readonly dataSource: DataSource,
   ) {}
 
-  async findAll(
+  async getData(
     query: QueryDashboardDto = {
       userId: '',
       date: undefined,
@@ -43,21 +43,37 @@ export class DashboardService {
     const result = await this.dataSource
       .createQueryBuilder(Dashboard, 'dashboard')
       .select(
-        "TO_CHAR(dashboard.createdAt, 'YYYY-MM-DD HH24') as datetime, COUNT(*) as count, user.name",
+        "TO_CHAR(dashboard.createdAt, 'DD-MM-YYYY HH24:MM') as datetime, COUNT(*) as count, user.name",
       )
       .leftJoin(User, 'user', 'user.id = dashboard.userId')
       .where(where)
       .groupBy('user.name, datetime')
+      .orderBy('datetime')
       .getRawMany();
 
     const labels = [];
     const datasets = [];
     result.forEach((item: any) => {
-      datasets.push({ label: item.name, data: item.count });
-      labels.push(item.datetime);
+      if (!labels.includes(item.datetime)) labels.push(item.datetime);
+    });
+
+    result.forEach((item: any) => {
+      const idx = labels.indexOf(item.datetime);
+      const idx2 = datasets.findIndex((data: any) => data.label === item.label);
+
+      if (idx >= 0 && idx2 >= 0) {
+        datasets[idx2].data[idx] = item.count;
+      } else if (idx >= 0) {
+        const data = new Array(labels.length).fill(null);
+        data[idx] = item.count;
+        datasets.push({
+          label: item.name,
+          data,
+          skipNull: true,
+        });
+      }
     });
 
     return { datasets, labels };
-    // return { result };
   }
 }

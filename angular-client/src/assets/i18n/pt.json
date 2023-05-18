@@ -100,7 +100,7 @@
   "dashboard": {
     "dashboard": "Dashboard",
     "dash-info": "Você visualizará informações sobre acesso dos inquilinos",
-    "date-filter": "Filtre por período",
+    "date-filter": "Filtre por data",
     "start-date": "Data inicial",
     "end-date": "Data final"
   },

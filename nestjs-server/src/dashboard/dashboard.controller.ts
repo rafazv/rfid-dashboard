@@ -25,8 +25,8 @@ export class DashboardController {
   ) {}
 
   @Get()
-  async findAll(@Query(ValidationPipe) searchQuery: QueryDashboardDto) {
-    return await this.dashboardService.findAll(searchQuery);
+  async getData(@Query(ValidationPipe) searchQuery: QueryDashboardDto) {
+    return await this.dashboardService.getData(searchQuery);
   }
 
   @Post()

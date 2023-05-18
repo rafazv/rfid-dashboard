@@ -14,40 +14,18 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   date = {
     start: '',
-    end: '',
   };
   startDate!: Date | null;
-  endDate!: Date | null;
 
-  lineChartData!: ChartConfiguration['data'];
-  lineChartOptions: ChartConfiguration['options'] = {
-    elements: {
-      line: {
-        tension: 0.5,
-      },
-    },
-    scales: {
-      // We use this empty structure as a placeholder for dynamic theming.
-      y: {
-        position: 'left',
-      },
-      y1: {
-        position: 'right',
-        grid: {
-          color: 'rgba(255,0,0,0.3)',
-        },
-        ticks: {
-          color: 'red',
-        },
-      },
-    },
-
+  chartData!: any;
+  chartOptions: ChartConfiguration['options'] = {
+    responsive: true,
     plugins: {
-      legend: { display: true },
+      legend: {
+        display: true,
+      },
     },
   };
-
-  dataSource: any = [];
 
   constructor(
     private loadService: LoadService,
@@ -59,72 +37,34 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.dashboardService.dashboard$
       .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe((data) => {
-        this.initDashData(data);
-      });
+      .subscribe((data) => (this.chartData = data));
   }
 
   ngAfterViewInit() {
     this.getDashData();
   }
 
-  initDashData(data: any) {
-    this.dataSource = data.result;
-    const datasets = [];
-    let dataItem;
-
-    if (this.dataSource) {
-      this.dataSource.forEach((item: any) => {
-        dataItem = {
-          data: [], // amount
-          label: item.user.name,
-          fill: 'origin',
-          backgroundColor: '',
-          borderColor: '',
-          pointBackgroundColor: '',
-        };
-        datasets.push(dataItem);
-      });
-    }
-
-    this.lineChartData = {
-      datasets: [
-        {
-          data: [65, 59, 80, 81, 56, 55, 40],
-          label: 'Series A',
-          backgroundColor: 'rgba(148,159,177,0.2)',
-          borderColor: 'rgba(148,159,177,1)',
-          pointBackgroundColor: 'rgba(148,159,177,1)',
-          fill: 'origin',
-        },
-      ],
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'], // datetime
-    };
-  }
-
   filterByDate() {
-    if (this.startDate && this.endDate) {
+    if (this.startDate) {
       this.date.start = this.startDate.toDateString();
-      this.endDate.setHours(23, 59, 59, 9999999);
-      this.date.end = this.endDate.toDateString();
+      this.getDashData();
     } else {
       this.startDate = null;
-      this.endDate = null;
     }
+  }
+
+  clearDateFilter() {
+    this.date.start = '';
+    this.getDashData();
   }
 
   getDashData() {
     this.loadService.emitLoadEvent(true);
 
     this.dashboardService
-      .findAll({
-        // page: 0,
-        // size: 5,
+      .getData({
         ...(this.date.start && {
-          dateStart: new Date(this.date.start).toISOString(),
-        }),
-        ...(this.date.end && {
-          dateEnd: new Date(this.date.end).toDateString(),
+          date: new Date(this.date.start).toISOString(),
         }),
       })
       .subscribe({

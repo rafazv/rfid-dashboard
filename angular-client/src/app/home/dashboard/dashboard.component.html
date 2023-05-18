@@ -5,35 +5,36 @@
 
 <mat-form-field>
   <mat-label>{{ "dashboard.date-filter" | translate }}</mat-label>
-  <mat-date-range-input [rangePicker]="picker">
-    <input
-      name="rangeStartDate"
-      #rangeStartDate="ngModel"
-      [(ngModel)]="startDate"
-      matStartDate
-      [disabled]="true"
-      placeholder="{{ 'dashboard.start-date' | translate }}"
-    />
-    <input
-      name="rangeEndDate"
-      #rangeEndDate="ngModel"
-      [(ngModel)]="endDate"
-      matEndDate
-      [disabled]="true"
-      placeholder="{{ 'dashboard.end-date' | translate }}"
-    />
-  </mat-date-range-input>
+
+  <input
+    matInput
+    [matDatepicker]="picker"
+    name="rangeDate"
+    #rangeDate="ngModel"
+    [(ngModel)]="startDate"
+    [disabled]="true"
+    placeholder="{{ 'dashboard.start-date' | translate }}"
+  />
   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-date-range-picker
+  <mat-datepicker
     #picker
     [disabled]="false"
     (closed)="filterByDate()"
-  ></mat-date-range-picker>
+  ></mat-datepicker>
 </mat-form-field>
+<button
+  mat-mini-fab
+  color="primary"
+  [disabled]="!startDate"
+  (click)="clearDateFilter()"
+  style="margin-left: 10px"
+>
+  <mat-icon>delete</mat-icon>
+</button>
 
 <canvas
   baseChart
-  [data]="lineChartData"
-  [options]="lineChartOptions"
-  [type]="'line'"
+  [data]="chartData"
+  [options]="chartOptions"
+  [type]="'bar'"
 ></canvas>

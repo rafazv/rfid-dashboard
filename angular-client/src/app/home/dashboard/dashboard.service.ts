@@ -12,7 +12,7 @@ export class DashboardService {
 
   constructor(private apiService: ApiService) {}
 
-  findAll(args?: any) {
+  getData(args?: any) {
     return this.apiService
       .get('/dashboard', args)
       .pipe(tap((data) => this.dashboardSource.next(data)));
