@@ -55,7 +55,7 @@ export class UsersListComponent implements OnInit, AfterViewInit {
   secMessageFiltered = 'lists.no-result-message';
 
   constructor(
-    public dialog: MatDialog,
+    private dialog: MatDialog,
     private usersService: UsersService,
     private loadService: LoadService
   ) {}
@@ -94,9 +94,15 @@ export class UsersListComponent implements OnInit, AfterViewInit {
       .subscribe({
         next: () => this.loadService.emitLoadEvent(false),
         error: () => {
-          // this.dialog.openErrorDialog(
-          //   ErrorUtil.translateError('', 'user.list-error'),
-          // ),
+          this.dialog.open(ModalBasicComponent, {
+            width: '400px',
+            autoFocus: false,
+            data: {
+              body: 'user.list-error',
+              hasCancel: false,
+              title: 'general.error',
+            },
+          });
         },
       });
   }

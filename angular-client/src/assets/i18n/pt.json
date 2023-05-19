@@ -102,7 +102,8 @@
     "dash-info": "Você visualizará informações sobre acesso dos inquilinos",
     "date-filter": "Filtre por data",
     "start-date": "Data inicial",
-    "end-date": "Data final"
+    "end-date": "Data final",
+    "load-error": "Erro ao carregar dados do dashboard!"
   },
   "welcome": {
     "welcome-to-text": "Bem-vindo ao RFID Dashboard!",

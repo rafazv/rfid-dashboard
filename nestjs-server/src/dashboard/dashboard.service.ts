@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 
-import { DashboardRepository } from './dashboard.repository';
 import { QueryDashboardDto } from './dto/query-dashboard.dto';
 import { Between, DataSource } from 'typeorm';
 import { QueryUtil } from 'src/utils';
@@ -11,10 +10,7 @@ import { User } from 'src/users/entities/user.entity';
 export class DashboardService {
   readonly filterColumns = [{ column: 'rfid', type: 'string' }];
 
-  constructor(
-    private readonly dashboardRepository: DashboardRepository,
-    private readonly dataSource: DataSource,
-  ) {}
+  constructor(private readonly dataSource: DataSource) {}
 
   async getData(
     query: QueryDashboardDto = {
@@ -43,37 +39,57 @@ export class DashboardService {
     const result = await this.dataSource
       .createQueryBuilder(Dashboard, 'dashboard')
       .select(
-        "TO_CHAR(dashboard.createdAt, 'DD-MM-YYYY HH24:MM') as datetime, COUNT(*) as count, user.name",
+        "TO_CHAR(dashboard.createdAt, 'DD-MM-YYYY HH24:MM') as datetime, COUNT(*) as count, user.name, user.id",
       )
       .leftJoin(User, 'user', 'user.id = dashboard.userId')
       .where(where)
-      .groupBy('user.name, datetime')
+      .groupBy('user.name, user.id, datetime')
       .orderBy('datetime')
       .getRawMany();
 
     const labels = [];
     const datasets = [];
+
+    const bgColors = [];
+
     result.forEach((item: any) => {
+      const userIds = [];
+
       if (!labels.includes(item.datetime)) labels.push(item.datetime);
+      if (!userIds.includes(item.id)) {
+        userIds.push(item.id);
+        bgColors.push({
+          userId: item.id,
+          color: `rgba(${this.generateRgbColor()},${this.generateRgbColor()},${this.generateRgbColor()},0.5)`,
+        });
+      }
     });
 
     result.forEach((item: any) => {
-      const idx = labels.indexOf(item.datetime);
-      const idx2 = datasets.findIndex((data: any) => data.label === item.label);
+      const idxExistDate = labels.indexOf(item.datetime);
+      const idxExistUser = datasets.findIndex(
+        (data: any) => data.label === item.label,
+      );
 
-      if (idx >= 0 && idx2 >= 0) {
-        datasets[idx2].data[idx] = item.count;
-      } else if (idx >= 0) {
+      if (idxExistDate >= 0 && idxExistUser >= 0) {
+        datasets[idxExistUser].data[idxExistDate] = item.count;
+      } else if (idxExistDate >= 0) {
         const data = new Array(labels.length).fill(null);
-        data[idx] = item.count;
+        data[idxExistDate] = item.count;
         datasets.push({
           label: item.name,
-          data,
+          backgroundColor: bgColors.find((user: any) => user.userId === item.id)
+            .color,
           skipNull: true,
+          data,
         });
       }
     });
 
     return { datasets, labels };
+  }
+
+  private generateRgbColor() {
+    return Math.trunc(Math.random() * 255);
   }
 }

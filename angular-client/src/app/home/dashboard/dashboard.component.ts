@@ -1,8 +1,9 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Chart, ChartConfiguration } from 'chart.js';
-import { LoadService } from 'src/app/shared';
+import { LoadService, ModalBasicComponent } from 'src/app/shared';
 import { DashboardService } from './dashboard.service';
 import { Subject, takeUntil } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,7 +30,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   constructor(
     private loadService: LoadService,
-    private dashboardService: DashboardService
+    private dashboardService: DashboardService,
+    private dialog: MatDialog
   ) {
     Chart.register();
   }
@@ -70,9 +72,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       .subscribe({
         next: () => this.loadService.emitLoadEvent(false),
         error: () => {
-          // this.dialog.openErrorDialog(
-          //   ErrorUtil.translateError('', 'user.list-error'),
-          // ),
+          this.dialog.open(ModalBasicComponent, {
+            width: '400px',
+            autoFocus: false,
+            data: {
+              body: 'dashboard.load-error',
+              hasCancel: false,
+              title: 'general.error',
+            },
+          });
         },
       });
   }
