@@ -86,11 +86,7 @@ export class UsersController {
 
   @Delete('/:id')
   async delete(@Param(ValidationPipe) { id }: EntityIdDto) {
-    const user = await this.userRepository.findOne({ where: { id } });
-
-    if (!user) throw new NotFoundException('not-found');
-
-    await this.userRepository.delete(id);
+    await this.usersService.delete(id);
 
     return { message: 'user-deleted' };
   }

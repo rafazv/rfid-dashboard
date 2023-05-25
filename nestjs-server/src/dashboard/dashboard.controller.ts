@@ -47,6 +47,6 @@ export class DashboardController {
       // createdAt: createDashboardRegisterDto.createdAt,
     });
 
-    return { message: 'dashboard-register-created' };
+    return { message: 'data-received' };
   }
 }

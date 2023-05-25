@@ -1,4 +1,10 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 
 import { QueryUtil } from 'src/utils';
 import { UserRepository } from './user.repository';
@@ -6,6 +12,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { SearchDto } from 'src/shared';
+
+import axios from 'axios';
 
 @Injectable()
 export class UsersService {
@@ -38,6 +46,16 @@ export class UsersService {
       aptoNumber: createUserDto.aptoNumber,
     };
 
+    const res = await axios({
+      method: 'POST',
+      url: process.env.ESP_URL,
+      data: user,
+    }).catch(() => {
+      throw new ForbiddenException('ESP url is not available');
+    });
+
+    if (!res) throw new InternalServerErrorException();
+
     return await this.userRepository.save(user);
   }
 
@@ -52,6 +70,16 @@ export class UsersService {
     user.rfid = updateUserDto.rfid;
     user.aptoNumber = updateUserDto.aptoNumber;
 
+    const res = await axios({
+      method: 'PUT',
+      url: process.env.ESP_URL,
+      data: user,
+    }).catch(() => {
+      throw new ForbiddenException('ESP url is not available');
+    });
+
+    if (!res) throw new InternalServerErrorException();
+
     return await this.userRepository.save(user);
   }
 
@@ -62,6 +90,34 @@ export class UsersService {
 
     user.disabled = !user.disabled;
 
+    const res = await axios({
+      method: 'PUT',
+      url: process.env.ESP_URL,
+      data: { rfid: user.rfid },
+    }).catch(() => {
+      throw new ForbiddenException('ESP url is not available');
+    });
+
+    if (!res) throw new InternalServerErrorException();
+
     return await this.userRepository.save(user);
+  }
+
+  async delete(userId: string) {
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+
+    if (!user) throw new NotFoundException('not-found');
+
+    const res = await axios({
+      method: 'DELETE',
+      url: process.env.ESP_URL,
+      data: { rfid: user.rfid },
+    }).catch(() => {
+      throw new ForbiddenException('ESP url is not available');
+    });
+
+    if (!res) throw new InternalServerErrorException();
+
+    await this.userRepository.delete(user.id);
   }
 }
