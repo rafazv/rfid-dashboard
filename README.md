@@ -18,3 +18,15 @@ npm start
 ```
 
 This command will start [client](http://localhost:4200) and [server](http://localhost:3000) on development mode.
+
+## Production/Homologation
+
+We've setup a [docker-compose file](./docker-compose.yml) for build and run.
+
+[Traefik](https://doc.traefik.io/traefik/) is the responsible for route all requests. We've configured Traefik using docker labels, so if you need to change ports and host rules, update the respective labels and entrypoints.
+
+For setup all environment, run:
+
+```bash
+docker-compose up -d --build
+```
