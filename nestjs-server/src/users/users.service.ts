@@ -46,15 +46,15 @@ export class UsersService {
       aptoNumber: createUserDto.aptoNumber,
     };
 
-    const res = await axios({
-      method: 'POST',
-      url: process.env.ESP_URL,
-      data: user,
-    }).catch(() => {
-      throw new ForbiddenException('ESP url is not available');
-    });
+    // const res = await axios({
+    //   method: 'POST',
+    //   url: process.env.ESP_URL,
+    //   data: user,
+    // }).catch(() => {
+    //   throw new ForbiddenException('ESP url is not available');
+    // });
 
-    if (!res) throw new InternalServerErrorException();
+    // if (!res) throw new InternalServerErrorException();
 
     return await this.userRepository.save(user);
   }
@@ -70,15 +70,15 @@ export class UsersService {
     user.rfid = updateUserDto.rfid;
     user.aptoNumber = updateUserDto.aptoNumber;
 
-    const res = await axios({
-      method: 'PUT',
-      url: process.env.ESP_URL,
-      data: user,
-    }).catch(() => {
-      throw new ForbiddenException('ESP url is not available');
-    });
+    // const res = await axios({
+    //   method: 'PUT',
+    //   url: process.env.ESP_URL,
+    //   data: user,
+    // }).catch(() => {
+    //   throw new ForbiddenException('ESP url is not available');
+    // });
 
-    if (!res) throw new InternalServerErrorException();
+    // if (!res) throw new InternalServerErrorException();
 
     return await this.userRepository.save(user);
   }
@@ -90,15 +90,15 @@ export class UsersService {
 
     user.disabled = !user.disabled;
 
-    const res = await axios({
-      method: 'PUT',
-      url: process.env.ESP_URL,
-      data: { rfid: user.rfid },
-    }).catch(() => {
-      throw new ForbiddenException('ESP url is not available');
-    });
+    // const res = await axios({
+    //   method: 'PUT',
+    //   url: process.env.ESP_URL,
+    //   data: { rfid: user.rfid },
+    // }).catch(() => {
+    //   throw new ForbiddenException('ESP url is not available');
+    // });
 
-    if (!res) throw new InternalServerErrorException();
+    // if (!res) throw new InternalServerErrorException();
 
     return await this.userRepository.save(user);
   }
@@ -108,15 +108,15 @@ export class UsersService {
 
     if (!user) throw new NotFoundException('not-found');
 
-    const res = await axios({
-      method: 'DELETE',
-      url: process.env.ESP_URL,
-      data: { rfid: user.rfid },
-    }).catch(() => {
-      throw new ForbiddenException('ESP url is not available');
-    });
+    // const res = await axios({
+    //   method: 'DELETE',
+    //   url: process.env.ESP_URL,
+    //   data: { rfid: user.rfid },
+    // }).catch(() => {
+    //   throw new ForbiddenException('ESP url is not available');
+    // });
 
-    if (!res) throw new InternalServerErrorException();
+    // if (!res) throw new InternalServerErrorException();
 
     await this.userRepository.delete(user.id);
   }
