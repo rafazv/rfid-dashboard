@@ -103,7 +103,9 @@
     "date-filter": "Filtre por data",
     "start-date": "Data inicial",
     "end-date": "Data final",
-    "load-error": "Erro ao carregar dados do dashboard!"
+    "load-error": "Erro ao carregar dados do dashboard!",
+    "no-data-title": "Sem informações sobre acessos!",
+    "no-data-info": "Ainda não há registro de informações<br/>sobre acesso do(s) inquilino(s) ao residencial"
   },
   "welcome": {
     "welcome-to-text": "Bem-vindo ao RFID Dashboard!",

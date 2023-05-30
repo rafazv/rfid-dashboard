@@ -15,7 +15,11 @@
     [disabled]="true"
     placeholder="{{ 'dashboard.start-date' | translate }}"
   />
-  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker-toggle
+    [disabled]="!chartData.datasets?.length"
+    matIconSuffix
+    [for]="picker"
+  ></mat-datepicker-toggle>
   <mat-datepicker
     #picker
     [disabled]="false"
@@ -33,8 +37,14 @@
 </button>
 
 <canvas
+  *ngIf="chartData.datasets?.length"
   baseChart
   [data]="chartData"
   [options]="chartOptions"
   [type]="'bar'"
 ></canvas>
+<app-empty-list
+  *ngIf="!chartData.datasets?.length"
+  [titleMessage]="'dashboard.no-data-title'"
+  [secMessage]="'dashboard.no-data-info'"
+></app-empty-list>
