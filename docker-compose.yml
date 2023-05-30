@@ -1,0 +1,119 @@
+version: "3"
+
+services:
+  rfid-dashboard-postgres:
+    image: postgres:13.5-alpine
+    container_name: rfid-dashboard-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: rfid-dashboard
+      POSTGRES_PASSWORD: rfid-dashboard
+      POSTGRES_DB: rfid-dashboard
+      PGDATA: /data/postgres
+      TZ: America/Manaus
+    networks:
+      - back
+    volumes:
+      - rfid-dashboard-db:/data/postgres
+    labels:
+      - traefik.enable=false
+
+  rfid-dashboard-server:
+    build:
+      context: ./nestjs-server
+    image: rfid-dashboard-server
+    container_name: rfid-dashboard-server
+    restart: always
+    networks:
+      - back
+      - traefik-proxy
+    volumes:
+      - rfid-dashboard-server:/root/rfid-dashboard
+    # dns:
+    #   - 8.8.8.8
+    depends_on:
+      - "rfid-dashboard-postgres"
+    environment:
+      - TZ=America/Manaus
+      - NODE_ENV=production
+      - APP_URL=http://localhost:4201
+      - SERVER_PORT=3001
+      - DB_HOST=rfid-dashboard-postgres
+      - DB_PORT=5432
+      - DB_USERNAME=rfid-dashboard
+      - DB_PASSWORD=rfid-dashboard
+      - DB_DATABASE=rfid-dashboard
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-proxy"
+      - "traefik.http.routers.rfid-dashboard-api.rule=Host(`localhost`)"
+      - "traefik.http.routers.rfid-dashboard-api.entrypoints=rfid-dashboard-back"
+      - "traefik.http.services.rfid-dashboard-api.loadbalancer.server.port=3000"
+      # - "traefik.http.routers.rfid-dashboard-api.tls=true"
+      # - "traefik.http.routers.rfid-dashboard-api.tls.certresolver=myresolver"
+
+  rfid-dashboard-client:
+    build:
+      context: ./angular-client
+    image: rfid-dashboard-client
+    container_name: rfid-dashboard-client
+    restart: always
+    networks:
+      - traefik-proxy
+    depends_on:
+      - "rfid-dashboard-server"
+    environment:
+      - TZ=America/Manaus
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-proxy"
+      - "traefik.http.routers.rfid-dashboard-client.rule=Host(`localhost`)"
+      - "traefik.http.routers.rfid-dashboard-client.entrypoints=rfid-dashboard-front"
+      - "traefik.http.services.rfid-dashboard-client.loadbalancer.server.port=4200"
+      # - "traefik.http.routers.rfid-dashboard-client.tls=true"
+      # - "traefik.http.routers.rfid-dashboard-client.tls.certresolver=myresolver"
+
+  traefik:
+    image: traefik:v2.5.5
+    container_name: rfid-dashboard-traefik
+    command:
+      - "--log.level=ERROR"
+      - "--api"
+      - "--ping=false"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.rfid-dashboard-front.address=:4201"
+      - "--entrypoints.rfid-dashboard-back.address=:3001"
+      # HTTPS Setup
+      # - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+      # - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      # - "--certificatesresolvers.myresolver.acme.email=rfid-dashboard@email.com"
+      # - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "4201:4201"
+      - "3001:3001"
+    # dns:
+    #   - 8.8.8.8
+    #   - 1.1.1.1
+    #   - 1.0.0.1
+    networks:
+      - traefik-proxy
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      # - "~/letsencrypt:/letsencrypt"
+    depends_on:
+      - "rfid-dashboard-server"
+      - "rfid-dashboard-client"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-proxy"
+
+networks:
+  back:
+    name: rfid-dashboard-back
+  traefik-proxy:
+    name: traefik-proxy
+
+volumes:
+  rfid-dashboard-db:
+  rfid-dashboard-server:

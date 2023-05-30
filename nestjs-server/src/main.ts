@@ -13,7 +13,9 @@ async function bootstrap() {
 
   app.use(helmet());
   app.enableCors({
-    origin: [process.env.APP_URL || 'http://localhost:4200'],
+    origin: [
+      process.env.APP_URL || process.env.ESP_URL || 'http://localhost:4200',
+    ],
     credentials: true,
   });
 

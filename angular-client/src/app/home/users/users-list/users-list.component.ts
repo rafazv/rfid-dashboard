@@ -98,7 +98,7 @@ export class UsersListComponent implements OnInit, AfterViewInit {
             width: '400px',
             autoFocus: false,
             data: {
-              body: 'user.list-error',
+              body: 'users.list-error',
               hasCancel: false,
               title: 'general.error',
             },
